@@ -30,11 +30,13 @@ class GamesController < ApplicationController
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
+        GamePlayer.create!(player: Player.find_by(user_id: current_user.id), game: @game)
       else
         format.html { render :new }
         format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /games/1

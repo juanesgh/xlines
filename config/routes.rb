@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'game_player/create'
   resources :game_stadistics
   resources :game_items
   resources :games
