@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  game: one
+  player: one
+  coordinate1: 1
+  coordinate2: 1
+
+two:
+  game: two
+  player: two
+  coordinate1: 1
+  coordinate2: 1

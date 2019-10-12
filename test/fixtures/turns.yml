@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  game: one
+  time: 2019-10-12 11:00:49
+  turn: 1
+
+two:
+  game: two
+  time: 2019-10-12 11:00:49
+  turn: 1
