@@ -5,11 +5,13 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     @games = Game.all
+    render json: @games
   end
 
   # GET /games/1
   # GET /games/1.json
   def show
+    render json: @game
   end
 
   # GET /games/new
@@ -26,28 +28,20 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-        format.json { render :show, status: :created, location: @game }
-      else
-        format.html { render :new }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
+    if @game.save
+      render json: @game, status: :created
+    else
+      render json: @game.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /games/1
   # PATCH/PUT /games/1.json
   def update
-    respond_to do |format|
-      if @game.update(game_params)
-        format.html { redirect_to @game, notice: 'Game was successfully updated.' }
-        format.json { render :show, status: :ok, location: @game }
-      else
-        format.html { render :edit }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
+    if @game.update(game_params)
+      render json: @game
+    else
+      render json: @game.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +49,6 @@ class GamesController < ApplicationController
   # DELETE /games/1.json
   def destroy
     @game.destroy
-    respond_to do |format|
-      format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
