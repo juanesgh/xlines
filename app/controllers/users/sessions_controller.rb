@@ -3,7 +3,6 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   skip_before_action :verify_authenticity_token
-  skip_before_action :create
 
   # Be sure to enable JSON.
   #respond_to :html, :json
