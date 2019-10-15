@@ -2,7 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-  skip_before_action :verify_authenticity_token
+  #skip_before_action :verify_authenticity_token
 
   # Be sure to enable JSON.
   #respond_to :html, :json
@@ -12,11 +12,11 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # # POST /resource/sign_in
-    def create
-      super do |user|
-        session[:token] = true
-      end
-    end
+    # def create
+    #   super do |user|
+    #     session[:token] = true
+    #   end
+    # end
   # #      user = User.where(email: params[:email]).first
               
   # #      if user&.valid_password?(params[:password])
