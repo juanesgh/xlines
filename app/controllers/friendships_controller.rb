@@ -1,5 +1,6 @@
 class FriendshipsController < ApplicationController
   before_action :set_friendship, only: [:show, :update, :destroy]
+  #before_action :authenticate_user!
 
   def create
     @friendship = Friendship.create!(sender_id: current_user.id, receiver_id: User.find(params[:receiver_id]).id, active: false)
@@ -23,7 +24,12 @@ class FriendshipsController < ApplicationController
   end
 
   def list
-    lists = Friendship.where(sender_id: current_user.id).or(Friendship.where(receiver_id: current_user.id))
+    if user_signed_in?
+      lists = Friendship.where(sender_id: current_user.id).or(Friendship.where(receiver_id: current_user.id))
+      render json: lists
+    else
+      render json: "User is not logged in"
+    end
   end 
 
   def destroy

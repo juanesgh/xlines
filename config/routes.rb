@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
   post 'friendships/create'
   post 'friendships/update'
   get 'friendships/show'
   delete 'friendships/destroy'
   get 'friendships/list'
 
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  #devise_for :users, controllers: { sessions: 'users/sessions' }
 
   resources :friendships
   resources :game_stadistics

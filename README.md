@@ -1,24 +1,17 @@
-# README
+Para poder utilizar la aplicacion correctamente>
+Realizar login, mandando json conn este estilo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+{
+	"email":"b@bbb.com",
+	"password":"bbbbbb",
+	"session":{
+		"email":"b@bbb.com",
+		"password":"bbbbbb"
+	}
+}
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Luego, guardar del header recibido (No importaa si se realizo get post o delete) los siguientes headers:
+*access-token
+*client
+*uid
+realizar esta acion cada vez que se haga una request http, porque si no el token access queda invalido y toca hacer login de nuevo

@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-User.create!(email: 'c@c.c', password: 'cccccc', password_confirmation: 'cccccc')
-User.create!(email: 'b@b.b', password: 'bbbbbb', password_confirmation: 'bbbbbb')
-User.create!(email: 'd@d.d', password: 'dddddd', password_confirmation: 'dddddd')
-User.create!(email: 'w@w.w', password: 'wwwwww', password_confirmation: 'wwwwww')
+User.create!(email: 'c@ccc.com', password: 'cccccc', password_confirmation: 'cccccc')
+User.create!(email: 'b@bbb.com', password: 'bbbbbb', password_confirmation: 'bbbbbb')
+User.create!(email: 'd@ddd.com', password: 'dddddd', password_confirmation: 'dddddd')
+User.create!(email: 'w@www.com', password: 'wwwwww', password_confirmation: 'wwwwww')
 
 Player.create!(name: 'Player1', user: User.find(1))
 Player.create!(name: 'Player2', user: User.find(2))
