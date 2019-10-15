@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
-  skip_before_action :authenticate_user!
+  before_action :configure_sign_in_params, only: [:create]
+  #skip_before_action :authenticate_user!
 
   # Be sure to enable JSON.
   #respond_to :html, :json
