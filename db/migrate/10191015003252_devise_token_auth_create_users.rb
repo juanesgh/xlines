@@ -7,9 +7,8 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.string :uid, :null => false, :default => ""
 
       ## Database authenticatable
-      unless column_exists? :users, :encrypted_password
-        t.string :encrypted_password, :null => false, :default => ""
-      end
+      
+      t.string :encrypted_password, :null => false, :default => ""
 
       ## Recoverable
       t.string   :reset_password_token
