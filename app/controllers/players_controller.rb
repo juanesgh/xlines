@@ -30,6 +30,8 @@ class PlayersController < ApplicationController
         else
           render json: @player.errors, status: :unprocessable_entity
         end
+      else
+        render json: "", status: :ok
       end
     end
   end
