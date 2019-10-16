@@ -10,15 +10,15 @@ class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-      if current_user.name != nil
-        Player.create!(name: current_user.name, user: current_user)
-      else
-        nm = 'Player' + current_user.id.to_s
-        Player.create!(name: nm, user: current_user)
-      end
-  end
+  # def create
+  #   super
+  #     if current_user.name != nil
+  #       Player.create!(name: current_user.name, user: current_user)
+  #     else
+  #       nm = 'Player' + current_user.id.to_s
+  #       Player.create!(name: nm, user: current_user)
+  #     end
+  # end
 
   # GET /resource/edit
   # def edit

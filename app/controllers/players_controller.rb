@@ -29,6 +29,8 @@ class PlayersController < ApplicationController
       else
         render json: @player.errors, status: :unprocessable_entity
       end
+    else
+      render json: "No loged in", status: :unauthorized
     end
   end
 
