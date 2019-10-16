@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   get 'friendships/friend_list'
   post 'friendships/create'
-  post 'friendships/update'
+  patch 'friendships', to: 'friendships#update'
   get 'friendships/show'
-  delete 'friendships/destroy'
+  #delete 'friendships/destroy'
+  delete '/friendships', to: 'friendships#destroy'
   get 'friendships/list'
   patch 'turns/change_turn'
 

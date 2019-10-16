@@ -12,7 +12,7 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    if @friendship.update(friendship_params)
+    if @friendship.update(active: params[:active])
       render json: @friendship
     else
       render json: @friendship.errors, status: :unprocessable_entity
@@ -54,17 +54,17 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    @friendship.destroy
+    @friendship.delete
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_frienship
+    def set_friendship
       @friendship = Friendship.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def friendship_params
-      params.require(:friendship).permit(:sender_id, :receiver_id, :active)
+      params.require(:friendship).permit(:id, :sender_id, :receiver_id, :active)
     end
 end
