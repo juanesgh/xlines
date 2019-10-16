@@ -21,16 +21,16 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.json
   def create
-    if Player.find_by(user: current_user) == nil
-      @player = Player.create!(name: current_user.name, user:current_user)
+    if user_signed_in?
+      if Player.find_by(user_id: current_user.id) == nil
+        @player = Player.create!(name: current_user.name, user_id: current_user.id)
 
-      if @player.save
-        render json: @player, status: :created
-      else
-        render json: @player.errors, status: :unprocessable_entity
+        if @player.save
+          render json: @player, status: :created
+        else
+          render json: @player.errors, status: :unprocessable_entity
+        end
       end
-    else
-      render json: "No loged in", status: :unauthorized
     end
   end
 
