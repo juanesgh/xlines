@@ -1,6 +1,7 @@
 class FriendshipsController < ApplicationController
   before_action :set_friendship, only: [:show, :update, :destroy]
-  
+  #before_action :authenticate_user!
+
   def create
     @friendship = Friendship.create!(sender: Player.find_by(user: current_user), receiver: Player.find_by(user: User.find(params[:receiver_id])), active: false)
     if @friendship.save
@@ -11,8 +12,7 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    f = @friendship.update(active: params[:active])
-    if f.save
+    if @friendship.update(active: params[:active])
       render json: @friendship
     else
       render json: @friendship.errors, status: :unprocessable_entity
