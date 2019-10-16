@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post 'friendships/create'
   patch 'friendships', to: 'friendships#update'
   get 'friendships/show'
-  #delete 'friendships/destroy'
+  
   delete '/friendships', to: 'friendships#destroy'
   get 'friendships/list'
   patch 'turns/change_turn'
