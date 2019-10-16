@@ -34,6 +34,7 @@ class PlayersController < ApplicationController
         render json: "", status: :ok
       end
     end
+      render json: "Not logged in", status: :unauthorized
   end
 
   # PATCH/PUT /players/1
