@@ -25,8 +25,11 @@ class FriendshipsController < ApplicationController
 
   def list
     if user_signed_in?
-      lists = Friendship.where(sender_id: Player.find_by(user: current_user)).or(Friendship.where(receiver_id: Player.find_by(user: current_user)))
-      render json: lists
+      solicitudes = Friendship.where(sender_id: Player.find_by(user: current_user)).or(Friendship.where(receiver_id: Player.find_by(user: current_user)))
+      dicc = []
+      solicitudes.each do |k|
+        k.push({name1: Player.find(k.sender_id).name, name2: Player.find(k.receiver_id).name})
+      render json: dicc
     else
       render json: "User is not logged in"
     end
