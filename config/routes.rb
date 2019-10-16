@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'movement/move'
+  get 'turns/change_turn'
   mount_devise_token_auth_for 'User', at: 'auth'
-
+  get 'friendships/friends_list'
   post 'friendships/create'
   post 'friendships/update'
   get 'friendships/show'

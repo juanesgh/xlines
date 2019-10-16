@@ -30,7 +30,16 @@ class FriendshipsController < ApplicationController
     else
       render json: "User is not logged in"
     end
-  end 
+  end
+
+  def friend_list
+    if user_signed_in?
+      lists = Friendship.where(sender_id: Player.find_by(user: current_user), active: true).or(Friendship.where(receiver_id: Player.find_by(user: current_user), active: true))
+      render json: lists
+    else
+      render json: "User is not logged in"
+    end
+  end
 
   def destroy
     @friendship.destroy

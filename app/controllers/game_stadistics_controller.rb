@@ -26,28 +26,47 @@ class GameStadisticsController < ApplicationController
   def create
     @game_stadistic = GameStadistic.new(game_stadistic_params)
 
-    respond_to do |format|
-      if @game_stadistic.save
-        format.html { redirect_to @game_stadistic, notice: 'Game stadistic was successfully created.' }
-        format.json { render :show, status: :created, location: @game_stadistic }
-      else
-        format.html { render :new }
-        format.json { render json: @game_stadistic.errors, status: :unprocessable_entity }
-      end
+    if @game_stadistic.save
+      render json: @game_stadistic, status: :created
+    else
+      render json: @game_stadistic.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /game_stadistics/1
   # PATCH/PUT /game_stadistics/1.json
   def update
-    respond_to do |format|
-      if @game_stadistic.update(game_stadistic_params)
-        format.html { redirect_to @game_stadistic, notice: 'Game stadistic was successfully updated.' }
-        format.json { render :show, status: :ok, location: @game_stadistic }
-      else
-        format.html { render :edit }
-        format.json { render json: @game_stadistic.errors, status: :unprocessable_entity }
-      end
+    if @game_stadistic.update(game_stadistics_params)
+      render json: @game_stadistic
+    else
+      render json: @game_stadistic.errors, status: :unprocessable_entity
+    end
+  end
+
+  def player_stadistics
+    if user_signed_in?
+      games = GameStadistics.where(player: Player.find_by(user: current_user))
+      stadistics = {}
+      total_games = 0
+      total_squares = 0
+      total_won = 0
+      won_percentage = 0
+      average_squares_per_game = 0
+      games.each do |g|
+        if g.won
+          total_won += 1
+        end
+        total_games += 1
+        total_squares += g.completed_squares
+      stadistics[:total_games] = total_games
+      stadistics[:total_squares] = total_squares
+      stadistics[:total_won] = total_won
+      stadistics[:won_percentage] = total_won/total_games
+      stadistics[:average_squares_per_game] = total_squares/total_games
+      
+      render json: stadistics
+    else
+      render json: "Not signed in", status: :unauthorized
     end
   end
 
@@ -55,10 +74,6 @@ class GameStadisticsController < ApplicationController
   # DELETE /game_stadistics/1.json
   def destroy
     @game_stadistic.destroy
-    respond_to do |format|
-      format.html { redirect_to game_stadistics_url, notice: 'Game stadistic was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private

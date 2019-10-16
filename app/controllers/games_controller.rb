@@ -26,12 +26,20 @@ class GamesController < ApplicationController
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(game_params)
+    if user_signed_in?
+      @game = Game.create!(user_id: current_user.id, active: true, type: params[:type], time: Time.now)
+      if @game.save
+        tmp = Time.now + 800
+        Turn.create!(game: @game, turn: 1, time: tmp)
+        
+        GamePlayer.create!(game: @game, player: Player.find_by(user: current_user), active: true)
 
-    if @game.save
-      render json: @game, status: :created
+        render json: @game, status: :created
+      else
+        render json: @game.errors, status: :unprocessable_entity
+      end
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render json: "NOt signed in", status: :unauthorized
     end
   end
 
