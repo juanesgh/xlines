@@ -30,6 +30,7 @@ class FriendshipsController < ApplicationController
       solicitudes.each do |k|
         dicc2 = []
         dicc2.push({friend: k})
+        dicc2.push({id: current_user.id})
         if k.sender.user == current_user
           dicc2.push({name1: Player.find(k.receiver_id).name})
         else
