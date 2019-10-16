@@ -58,6 +58,7 @@ class GameStadisticsController < ApplicationController
         end
         total_games += 1
         total_squares += g.completed_squares
+      end
       stadistics[:total_games] = total_games
       stadistics[:total_squares] = total_squares
       stadistics[:total_won] = total_won
