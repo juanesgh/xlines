@@ -21,12 +21,14 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.json
   def create
-    @player = Player.new(player_params)
+    if Player.find_by(user: current_user) == nil
+      @player = Player.create!(name: current_user.name, user:current_user)
 
-    if @player.save
-      render json: @player, status: :created
-    else
-      render json: @player.errors, status: :unprocessable_entity
+      if @player.save
+        render json: @player, status: :created
+      else
+        render json: @player.errors, status: :unprocessable_entity
+      end
     end
   end
 

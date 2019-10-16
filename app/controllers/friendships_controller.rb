@@ -3,7 +3,7 @@ class FriendshipsController < ApplicationController
   #before_action :authenticate_user!
 
   def create
-    @friendship = Friendship.create!(sender_id: current_user.id, receiver_id: User.find(params[:receiver_id]).id, active: false)
+    @friendship = Friendship.create!(sender: Player.find_by(user: current_user), receiver: Player.find_by(user: User.find(params[:receiver_id])), active: false)
     if @friendship.save
       render json: @friendship, status: :created
     else
@@ -25,7 +25,7 @@ class FriendshipsController < ApplicationController
 
   def list
     if user_signed_in?
-      lists = Friendship.where(sender_id: current_user.id).or(Friendship.where(receiver_id: current_user.id))
+      lists = Friendship.where(sender_id: Player.find_by(user: current_user)).or(Friendship.where(receiver_id: Player.find_by(user: current_user)))
       render json: lists
     else
       render json: "User is not logged in"
@@ -44,6 +44,6 @@ class FriendshipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def friendship_params
-      params.require(:friendship).permit(:sender_id, :receiber_id, :active)
+      params.require(:friendship).permit(:sender_id, :receiver_id, :active)
     end
 end

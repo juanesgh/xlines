@@ -1,26 +1,23 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
+  # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
   #   super
-  #     play = Player.create!(name: params[:name], user: current_user)
-  #     play.save
-      
   # end
 
   # POST /resource
   def create
     super
-    if current_user.name != nil
-      Player.create!(name: current_user.name, user: current_user)
-    else
-      nm = 'Player' + current_user.id.to_s
-      Player.create!(name: nm, user: current_user)
-    end
+      if current_user.name != nil
+        Player.create!(name: current_user.name, user: current_user)
+      else
+        nm = 'Player' + current_user.id.to_s
+        Player.create!(name: nm, user: current_user)
+      end
   end
 
   # GET /resource/edit
