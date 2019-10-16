@@ -35,7 +35,7 @@ class FriendshipsController < ApplicationController
   def friend_list
     if user_signed_in?
       lists = Friendship.where(sender_id: Player.find_by(user: current_user), active: true).or(Friendship.where(receiver_id: Player.find_by(user: current_user), active: true))
-      render json: lists
+      render json: lists, status: :ok
     else
       render json: "User is not logged in"
     end

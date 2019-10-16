@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   get 'movement/move'
   get 'turns/change_turn'
   mount_devise_token_auth_for 'User', at: 'auth'
-  get 'friendships/friends_list'
+  get 'friendships/friend_list'
   post 'friendships/create'
   post 'friendships/update'
   get 'friendships/show'
   delete 'friendships/destroy'
   get 'friendships/list'
+  patch 'turns/change_turn'
 
   #devise_for :users, controllers: { sessions: 'users/sessions' }
 
