@@ -46,8 +46,20 @@ class FriendshipsController < ApplicationController
 
   def friend_list
     if user_signed_in?
-      lists = Friendship.where(sender_id: Player.find_by(user: current_user), active: true).or(Friendship.where(receiver_id: Player.find_by(user: current_user), active: true))
-      render json: lists, status: :ok
+      solicitudes = Friendship.where(sender_id: Player.find_by(user: current_user), active: true).or(Friendship.where(receiver_id: Player.find_by(user: current_user), active: true))
+      dicc = []
+      solicitudes.each do |k|
+        dicc2 = []
+        dicc2.push({friend: k})
+        dicc2.push({id: current_user.id})
+        if k.sender.user == current_user
+          dicc2.push({name1: Player.find(k.receiver_id).name})
+        else
+          dicc2.push({name1: Player.find(k.sender_id).name})
+        end
+        dicc.push(dicc2)
+      end
+      render json: dicc
     else
       render json: "User is not logged in"
     end
