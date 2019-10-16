@@ -28,9 +28,11 @@ class FriendshipsController < ApplicationController
       solicitudes = Friendship.where(sender_id: Player.find_by(user: current_user)).or(Friendship.where(receiver_id: Player.find_by(user: current_user)))
       dicc = []
       solicitudes.each do |k|
-        dicc.push({friend: k})
-        dicc.push({name1: Player.find(k.sender_id).name})
-        dicc.push({name2: Player.find(k.receiver_id).name})
+        dicc2 = []
+        dicc2.push({friend: k})
+        dicc2.push({name1: Player.find(k.sender_id).name})
+        dicc2.push({name2: Player.find(k.receiver_id).name})
+        dicc.push(dicc2)
       end
       render json: dicc
     else
