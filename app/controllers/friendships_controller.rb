@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
   before_action :set_friendship, only: [:show, :update, :destroy]
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def create
     @friendship = Friendship.create!(sender: Player.find_by(user: current_user), receiver: Player.find_by(user: User.find(params[:receiver_id])), active: false)
